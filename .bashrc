@@ -65,7 +65,7 @@ alias pdf="evince"
 alias h="history"
 alias pulseaudioc="pavucontrol"
 
-# history verify and expand !! etc
+ #history verify and expand !! etc
 shopt -s histverify
 
 # end custom settings
@@ -180,3 +180,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+
+# custom PS1
+export PS1="\[\e[00;37m\]\u@\h:\w\[\e[0m\]\[\e[00;31m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
