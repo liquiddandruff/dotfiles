@@ -59,9 +59,10 @@ alias xcv='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org
 alias xdb="~/.dropbox-dist/dropboxd &"
 alias xtheme="~/.config/awesome/switch-theme.sh"
 #remaps
+alias tmux="tmux -2"
+alias less="less -R" #enable color
 alias pdf="evince"
 alias h="history"
-alias tmux="tmux -2"
 alias pulseaudioc="pavucontrol"
 
 # history verify and expand !! etc
