@@ -58,6 +58,7 @@ map <Leader>k <Plug>(easymotion-k)
 " Plugin mappings
 nnoremap <F5> :GundoToggle<CR>
 nnoremap <F6> :NERDTreeToggle<CR>
+nnoremap <F10> :SignatureRefresh<CR>
 
 " user interface
 syntax on

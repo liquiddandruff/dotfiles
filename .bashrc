@@ -5,6 +5,7 @@ PATH=$PATH:$JAVA_HOME/bin
 export JAVA_HOME=/usr/java/jdk1.8.0_05
 export EDITOR="vim"
 
+alias getUsed="du -h * | sort -h -r | less"
 alias src="source ~/.bashrc"
 alias erc="vim ~/.bashrc"
 alias ewm="cd ~/.config/awesome/; vim rc.lua"
