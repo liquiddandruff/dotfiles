@@ -1,4 +1,5 @@
 # start custom settings 
+PATH=$PATH:~/bin
 PATH=$PATH:$HOME/.rvm/gems/ruby-2.0.0-p247/gems/jekyll-1.1.2/bin # Add jekyll to PATH
 PATH=$PATH:$JAVA_HOME/bin
 export JAVA_HOME=/usr/java/jdk1.8.0_05
