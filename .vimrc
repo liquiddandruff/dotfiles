@@ -1,10 +1,16 @@
-" START Vundle plugin manager setup
+"----------------- START Vundle plugin manager setup
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " Plugin manager
 Plugin 'gmarik/vundle' 
+" It completes me
+Plugin 'Valloric/YouCompleteMe'
+" Better marks
+Plugin 'kshenoy/vim-signature'
+" Tag Bar
+Plugin 'majutsushi/tagbar'
 " Syntax checker
 Plugin 'scrooloose/syntastic'
 " Nerdtree
@@ -15,50 +21,54 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-unimpaired'
 " Awesome undos
 Plugin 'sjl/gundo.vim'
-" Better marks
-Plugin 'kshenoy/vim-signature'
 " ColorSchemes!
 Plugin 'flazz/vim-colorschemes'
 " Text alignment
-Plugin 'godlygeek/tabular'
 Plugin 'Lokaltog/vim-easymotion'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'godlygeek/tabular'
 call vundle#end()
-" END Vundle plugin manager setup
+"----------------- END Vundle plugin manager setup
 
+"--------- START color schemes
 "~/.vim/bundle/vim-colorschemes/colors/molokai.vim
-" setup colours! dante, 256-grayvim, wombat256, Tomorrow-Night, less, molokai, hybrid, xoria256, 
-colorscheme 256-grayvim
+" dante, 256-grayvim, wombat256, Tomorrow-Night, less, molokai, hybrid, xoria256, 
+"colorscheme 256-grayvim
 colorscheme molokai
 "hi SignColumn ctermbg=235
-" setup colours!
+"--------- END color schemes
 
-" syntastic setup
+"--------- START syntastic setup
 let g:syntastic_enable_signs = 1
 let g:syntastic_auto_jump    = 1
 let g:syntastic_stl_format   = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
-" syntastic setup
-"
-" YouCompleteMe conf
+"--------- END syntastic setup
+
+"--------- START ycm setup
 let g:ycm_complete_in_comments = 1
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-" YouCompleteMe conf
+"--------- END ycm setup
 
-" easymotion conf
+"--------- START easymotion setup
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 " Bi-directional find motion
 nmap s <Plug>(easymotion-s)
-" case sensitivity 
 let g:EasyMotion_smartcase = 0
-" JK motions: Line motions
+" jump to lines below/above
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
-" easymotion conf
+"--------- END easymotion setup
 
-" Plugin mappings
+"--------- START tagbar setup
+let g:tagbar_ctags_bin='~/dotfiles/ctags-5.8/ctags'
+"--------- END tagbar setup
+ 
+"--------- Plugin Mappings
 nnoremap <F5> :GundoToggle<CR>
 nnoremap <F6> :NERDTreeToggle<CR>
+nnoremap <F7> :TagbarToggle<CR>
 nnoremap <F10> :SignatureRefresh<CR>
+
+"----------------- END Plugins
 
 " user interface
 syntax on
