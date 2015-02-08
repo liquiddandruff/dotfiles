@@ -2,6 +2,7 @@
 PATH=$PATH:~/bin
 PATH=$PATH:$HOME/.rvm/gems/ruby-2.0.0-p247/gems/jekyll-1.1.2/bin # Add jekyll to PATH
 PATH=$PATH:$JAVA_HOME/bin
+PATH=$PATH:~/dotfiles/ctags-5.8 # for VIM ctags
 export JAVA_HOME=/usr/java/jdk1.8.0_05
 export EDITOR="vim"
 
@@ -31,9 +32,7 @@ alias todocs="cd ~/Documents"
 alias tospeed="torepos; cd SpeedCrunch/src"
 
 alias toschool="todb; cd school"
-alias to300="toschool; cd cmpt300"
-alias tohw="to300; cd ass4"
-alias ehw="tohw; vim ferryMSG.c"
+alias to361="toschool; cd CMPT361"
 
 alias packagesite="rake theme:package name="custom""
 alias updatesite="tobin; ./blueVPSftp; cd -"
