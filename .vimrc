@@ -5,12 +5,14 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " Plugin manager
 Plugin 'gmarik/vundle' 
+" Fuzzy buffer/files
+Plugin 'kien/ctrp.vim'
 " It completes me
 Plugin 'Valloric/YouCompleteMe'
 " Better marks
 Plugin 'kshenoy/vim-signature'
 " Better statusbar
-"Plugin 'bling/vim-airline'
+Plugin 'bling/vim-airline'
 " Tag Bar
 Plugin 'majutsushi/tagbar'
 " Easytags
@@ -49,7 +51,7 @@ colorscheme molokai
 "--------- END color schemes
 
 set noshowmode
-"let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1
 "if !exists('g:airline_symbols')
   "let g:airline_symbols = {}
 "endif
@@ -182,7 +184,11 @@ inoremap JK <Esc>
 nnoremap ,l :bn<CR>
 nnoremap ,; :bp<CR>
 
-" functions 
+" filetype settings
+let g:html_indent_inctags = "html,body,head,tbody"
+autocmd FileType html setlocal shiftwidth=2 tabstop=2 expandtab
+
+"" functions 
 " get the diff of current buffer with original buffer (diffsaved diffoff)
 function! s:DiffWithSaved()
   let filetype=&ft
