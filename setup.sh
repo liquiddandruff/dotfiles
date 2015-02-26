@@ -1,5 +1,6 @@
 #!/bin/bash
 sh fonts/install.sh
+fc-cache -vf ~/.fonts
 echo
 dotfiles=".vim .bashrc .vimrc .tmux.conf"
 dotfilesDIR=~/dotfiles
