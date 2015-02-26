@@ -1,69 +1,19 @@
 # start custom settings 
-PATH=$PATH:~/bin
-PATH=$PATH:$HOME/.rvm/gems/ruby-2.0.0-p247/gems/jekyll-1.1.2/bin # Add jekyll to PATH
-PATH=$PATH:$JAVA_HOME/bin
-PATH=$PATH:~/dotfiles/ctags-5.8 # for VIM ctags
-export JAVA_HOME=/usr/java/jdk1.8.0_05
 export EDITOR="vim"
 
-alias getUsed="du -h * | sort -h -r | less"
 alias src="source ~/.bashrc"
 alias erc="vim ~/.bashrc"
-alias ewm="cd ~/.config/awesome/; vim rc.lua"
 alias etmux="vim ~/.tmux.conf"
 alias evimrc="vim ~/.vimrc"
 alias ebash="tobin; vim bash"
 
-alias tobin="cd ~/bin"
-alias todev="cd ~/dev"
-alias towm="cd ~/.config/awesome"
-alias torepos="cd ~/GitRepos"
-alias totest="todev; cd test"
-alias tosite="cd ~/dev/liquiddandruff.github.com"
-alias tositecss="cd ~/dev/liquiddandruff.github.com/assets/themes/custom/css"
-alias tositeposts="cd ~/dev/liquiddandruff.github.com/_posts"
-alias tositehtml="cd ~/dev/liquiddandruff.github.com/_includes/themes/custom"
-alias tovps="ssh root@192.3.169.100" 
-alias toram="ssh -i ~/.ssh/ram root@ansible.stevenhuang.ca"
-alias todb="cd ~/Dropbox"
-alias todl="cd ~/Downloads"
-alias todocs="cd ~/Documents"
+alias toapp="cd ~/app"
+alias xapp="toapp; python manage.py runserver 0.0.0.0:12000"
 
-alias tospeed="torepos; cd SpeedCrunch/src"
-
-alias toschool="todb; cd school"
-alias to361="toschool; cd CMPT361"
-
-alias packagesite="rake theme:package name="custom""
-alias updatesite="tobin; ./blueVPSftp; cd -"
-alias _updatesite="tobin; ./lftpUpdate"
-
-alias setb="sudo su -c \"echo 4648 >/sys/class/backlight/intel_backlight/brightness\""
-function setbn { sudo su -c "echo $1 >/sys/class/backlight/intel_backlight/brightness"; }
-
-alias xzombies="ps aux | grep 'Z'"
-alias xsite="tosite; jekyll -w --safe server"
-alias xsitepid="lsof -wni tcp:4000"
-alias xkill="kill -9\\"
-alias xclient="todev; love untitledClient"
-alias xserver="todev; love untitledServer"
-alias xapthistory="( zcat $( ls -tr /var/log/apt/history.log*.gz ) ; cat /var/log/apt/history.log ) | egrep '^(Start-Date:|Commandline:)' | grep -v aptdaemon | egrep '^Commandline:'"
-
-alias xsql="mysql -u root -p"
-alias xstudio="~/Desktop/android-studio/bin/studio.sh"
-alias xstudioupdate="~/Desktop/android-studio/bin/update_studio.sh"
-alias xtemp="sensors"
-alias xbat="upower -i /org/freedesktop/UPower/devices/battery_BAT1"
-alias xdv="sudo hibernate"
-alias xcv='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend'
-alias xdb="~/.dropbox-dist/dropboxd &"
-alias xtheme="~/.config/awesome/switch-theme.sh"
 #remaps
 alias tmux="tmux -2"
 alias less="less -R" #enable color
-alias pdf="evince"
 alias h="history"
-alias pulseaudioc="pavucontrol"
 
  #history verify and expand !! etc
 shopt -s histverify

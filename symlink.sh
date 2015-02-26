@@ -1,5 +1,5 @@
 #!/bin/bash
-dotfiles=".bashrc .vimrc .tmux.conf"
+dotfiles=".vim .bashrc .vimrc .tmux.conf"
 dotfilesDIR=~/dotfiles
 for dotfile in $dotfiles; do
 	echo "Creating symlink for $dotfile"
