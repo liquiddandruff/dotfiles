@@ -14,6 +14,7 @@ alias etmux="vim ~/.tmux.conf"
 alias evimrc="vim ~/.vimrc"
 alias ebash="tobin; vim bash"
 
+alias tovim="cd ~/dotfiles"
 alias tobin="cd ~/bin"
 alias todev="cd ~/dev"
 alias towm="cd ~/.config/awesome"
