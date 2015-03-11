@@ -59,6 +59,7 @@ alias xdv="sudo hibernate"
 alias xcv='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend'
 alias xdb="~/.dropbox-dist/dropboxd &"
 alias xtheme="~/.config/awesome/switch-theme.sh"
+alias xhdmi="xrandr --output HDMI1 --mode 1920x1080 --left-of LVDS1"
 #remaps
 alias tmux="tmux -2"
 alias less="less -R" #enable color
