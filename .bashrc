@@ -18,6 +18,7 @@ alias tovim="cd ~/dotfiles"
 alias tobin="cd ~/bin"
 alias todev="cd ~/dev"
 alias towm="cd ~/.config/awesome"
+alias todots="cd ~/dotfiles"
 alias torepos="cd ~/GitRepos"
 alias totest="todev; cd test"
 alias tosite="cd ~/dev/liquiddandruff.github.com"
@@ -60,6 +61,7 @@ alias xcv='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org
 alias xdb="~/.dropbox-dist/dropboxd &"
 alias xtheme="~/.config/awesome/switch-theme.sh"
 alias xhdmi="xrandr --output HDMI1 --mode 1920x1080 --left-of LVDS1"
+alias xhdmioff="xrandr --output HDMI1 --off"
 #remaps
 alias tmux="tmux -2"
 alias less="less -R" #enable color

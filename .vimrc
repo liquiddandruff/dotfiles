@@ -3,10 +3,11 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+Plugin 'tclem/vim-arduino'
 " Plugin manager
 Plugin 'gmarik/vundle' 
 " Fuzzy buffer/files
-Plugin 'kien/ctrp.vim'
+Plugin 'kien/ctrlp.vim'
 " It completes me
 Plugin 'Valloric/YouCompleteMe'
 " Better marks
