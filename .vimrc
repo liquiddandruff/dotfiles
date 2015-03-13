@@ -1,9 +1,10 @@
 ""----------------- START Vundle plugin manager setup
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/vundle
 call vundle#begin()
-Plugin 'tclem/vim-arduino'
+"Plugin 'tclem/vim-arduino'
+"Plugin 'jplaut/vim-arduino-ino'
 " Plugin manager
 Plugin 'gmarik/vundle' 
 " Fuzzy buffer/files
@@ -50,6 +51,11 @@ colorscheme 256-grayvim
 colorscheme molokai
 "hi SignColumn ctermbg=235
 "--------- END color schemes
+
+"--------- START arduino setup
+au BufRead,BufNewFile *.pde set filetype=arduino
+au BufRead,BufNewFile *.ino set filetype=arduino
+"--------- END arduino setup
 
 set noshowmode
 let g:airline_powerline_fonts = 1
