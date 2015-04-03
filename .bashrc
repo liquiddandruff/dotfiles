@@ -3,6 +3,9 @@ PATH=$PATH:~/bin
 PATH=$PATH:$HOME/.rvm/gems/ruby-2.0.0-p247/gems/jekyll-1.1.2/bin # Add jekyll to PATH
 PATH=$PATH:$JAVA_HOME/bin
 PATH=$PATH:~/dotfiles/ctags-5.8 # for VIM ctags
+PATH=$PATH:~/Desktop/android-studio-sdk/platform-tools # add adb to path
+PATH=$PATH:~/GitRepos/esp-open-sdk/xtensa-lx106-elf/bin # add xtensa gcc to path
+
 export JAVA_HOME=/usr/java/jdk1.8.0_05
 export EDITOR="vim"
 
@@ -14,12 +17,16 @@ alias etmux="vim ~/.tmux.conf"
 alias evimrc="vim ~/.vimrc"
 alias ebash="tobin; vim bash"
 
+alias tostudio="cd ~/Desktop/android-studio/"
 alias tovim="cd ~/dotfiles"
 alias tobin="cd ~/bin"
 alias todev="cd ~/dev"
 alias towm="cd ~/.config/awesome"
 alias todots="cd ~/dotfiles"
 alias torepos="cd ~/GitRepos"
+alias toidea="torepos; cd IdEA"
+alias toespsdk="cd ~/GitRepos/esp-open-sdk"
+alias toespdev="toespsdk; cd source-code-examples"
 alias totest="todev; cd test"
 alias tosite="cd ~/dev/liquiddandruff.github.com"
 alias tositecss="cd ~/dev/liquiddandruff.github.com/assets/themes/custom/css"
@@ -51,10 +58,15 @@ alias xclient="todev; love untitledClient"
 alias xserver="todev; love untitledServer"
 alias xapthistory="( zcat $( ls -tr /var/log/apt/history.log*.gz ) ; cat /var/log/apt/history.log ) | egrep '^(Start-Date:|Commandline:)' | grep -v aptdaemon | egrep '^Commandline:'"
 
+# programs
 alias xsql="mysql -u root -p"
-alias xstudio="~/Desktop/android-studio/bin/studio.sh"
+alias xstudio="tostudio; ./bin/studio.sh"
 alias xstudioupdate="~/Desktop/android-studio/bin/update_studio.sh"
+alias xscrn="shutter"
+
+# utilities
 alias xtemp="sensors"
+alias xap="sudo hotspotd start"
 alias xbat="upower -i /org/freedesktop/UPower/devices/battery_BAT1"
 alias xdv="sudo hibernate"
 alias xcv='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend'
@@ -68,6 +80,8 @@ alias less="less -R" #enable color
 alias pdf="evince"
 alias h="history"
 alias pulseaudioc="pavucontrol"
+#ctrl+d don't exit shell
+set -o ignoreeof
 
  #history verify and expand !! etc
 shopt -s histverify
@@ -188,3 +202,4 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 # custom PS1
 export PS1="\[\e[00;37m\]\u@\h:\w\[\e[0m\]\[\e[00;31m\]\\$\[\e[0m\]\[\e[00;37m\] \[\e[0m\]"
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

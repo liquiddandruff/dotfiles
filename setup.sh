@@ -2,7 +2,7 @@
 sh fonts/install.sh
 fc-cache -vf ~/.fonts
 echo
-dotfiles=".vim .bashrc .vimrc .tmux.conf"
+dotfiles=".nvimrc .nvim .vim .bashrc .vimrc .tmux.conf"
 dotfilesDIR=~/dotfiles
 for dotfile in $dotfiles; do
 	echo "Creating symlink for $dotfile"

@@ -190,6 +190,8 @@ inoremap JK <Esc>
 " ctr tab to switch buffers
 nnoremap ,l :bn<CR>
 nnoremap ,; :bp<CR>
+" Write when not sudo
+cmap w!! w !sudo tee > /dev/null %
 
 " filetype settings
 let g:html_indent_inctags = "html,body,head,tbody"
