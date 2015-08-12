@@ -3,14 +3,20 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle
 call vundle#begin()
-"Plugin 'tclem/vim-arduino'
-"Plugin 'jplaut/vim-arduino-ino'
 " Plugin manager
 Plugin 'gmarik/vundle' 
 " Fuzzy buffer/files
 Plugin 'kien/ctrlp.vim'
 " It completes me
 Plugin 'Valloric/YouCompleteMe'
+" Python
+Plugin 'ivanov/vim-ipython'
+" Node
+Plugin 'moll/vim-node'
+" JS syntax highlighting
+Plugin 'jelera/vim-javascript-syntax'
+" Close tags
+Plugin 'alvan/vim-closetag'
 " Better marks
 Plugin 'kshenoy/vim-signature'
 " Better statusbar
@@ -38,8 +44,11 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'sjl/gundo.vim'
 " ColorSchemes!
 Plugin 'flazz/vim-colorschemes'
+" Jellybean colors
+Plugin 'nanotech/jellybeans.vim'
 " Text alignment
 Plugin 'Lokaltog/vim-easymotion'
+Plugin 'unblevable/quick-scope'
 Plugin 'godlygeek/tabular'
 call vundle#end()
 "----------------- END Vundle plugin manager setup
@@ -49,6 +58,10 @@ call vundle#end()
 " dante, 256-grayvim, wombat256, Tomorrow-Night, less, molokai, hybrid, xoria256, 
 colorscheme 256-grayvim
 colorscheme molokai
+" custom colorscheme for diffs
+if &diff
+    colorscheme jellybeans
+endif
 "hi SignColumn ctermbg=235
 "--------- END color schemes
 
@@ -113,6 +126,31 @@ map <Leader>k <Plug>(easymotion-k)
 let g:tagbar_compact=1
 let g:tagbar_width=30
 "--------- END tagbar/easytag setup
+
+"--------- START quickscope setup
+function! Quick_scope_selective(movement)
+    let needs_disabling = 0
+    if !g:qs_enable
+        QuickScopeToggle
+        redraw
+        let needs_disabling = 1
+    endif
+
+    let letter = nr2char(getchar())
+
+    if needs_disabling
+        QuickScopeToggle
+    endif
+
+    return a:movement . letter
+endfunction
+
+let g:qs_enable = 0
+
+for i in  [ 'f', 'F', 't', 'T' ]
+    execute 'noremap <expr> <silent>' . i . " Quick_scope_selective('". i . "')"
+endfor
+"--------- END quickscope setup
  
 "--------- Plugin Mappings
 nnoremap <F5> :GundoToggle<CR>

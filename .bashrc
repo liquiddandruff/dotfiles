@@ -1,15 +1,23 @@
 # start custom settings 
 PATH=$PATH:~/bin
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 PATH=$PATH:$HOME/.rvm/gems/ruby-2.0.0-p247/gems/jekyll-1.1.2/bin # Add jekyll to PATH
 PATH=$PATH:$JAVA_HOME/bin
 PATH=$PATH:~/dotfiles/ctags-5.8 # for VIM ctags
 PATH=$PATH:~/Desktop/android-studio-sdk/platform-tools # add adb to path
 PATH=$PATH:~/GitRepos/esp-open-sdk/xtensa-lx106-elf/bin # add xtensa gcc to path
+PATH=$PATH:/usr/lib/postgresql/9.3/bin # postgres to path
+# arducopter
+PATH=$PATH:$HOME/GitRepos/Avian/ardupilot/Tools/autotest
+PATH=/usr/lib/ccache:$PATH
 
+export ESP_HOME="/home/steven/GitRepos/esp-open-sdk"
+export SMING_HOME="/home/steven/GitRepos/Sming/Sming"
 export JAVA_HOME=/usr/java/jdk1.8.0_05
 export EDITOR="vim"
 
-alias getUsed="du -h * | sort -h -r | less"
+# tmux shell completion
+source ~/bin/tmux-shell-completion.sh
 alias src="source ~/.bashrc"
 alias erc="vim ~/.bashrc"
 alias ewm="cd ~/.config/awesome/; vim rc.lua"
@@ -17,6 +25,7 @@ alias etmux="vim ~/.tmux.conf"
 alias evimrc="vim ~/.vimrc"
 alias ebash="tobin; vim bash"
 
+# freq dirs
 alias tostudio="cd ~/Desktop/android-studio/"
 alias tovim="cd ~/dotfiles"
 alias tobin="cd ~/bin"
@@ -24,9 +33,29 @@ alias todev="cd ~/dev"
 alias towm="cd ~/.config/awesome"
 alias todots="cd ~/dotfiles"
 alias torepos="cd ~/GitRepos"
+alias toschool="todb; cd school"
+alias xnas="thunar smb://10.42.0.19/media"
+# IdEA
 alias toidea="torepos; cd IdEA"
+alias tocsas="toidea; cd csa-site"
+alias xcsa="tocsas; ./manage.py runserver 0.0.0.0:11000"
+alias tocsaf="toidea; cd csa-firmware"
+alias tonode="torepos; cd nodemcu-firmware"
 alias toespsdk="cd ~/GitRepos/esp-open-sdk"
 alias toespdev="toespsdk; cd source-code-examples"
+alias xflashNODE="tonode; make flash"
+alias xflashAT="toespsdk; cd esptool/test; ../esptool.py --port /dev/ttyUSB0 write_flash 0x00000 boot_v1.1.bin 0x01000 user1.bin 0x7c000 esp_init_data_default.bin 0x7e000 blank.bin"
+alias xflashX="toespsdk; cd esptool/test; ../esptool.py --port /dev/ttyUSB0 write_flash 0x00000 blank.bin 0x01000 blank.bin 0x40000 blank.bin 0x7c000 blank.bin 0x7e000 blank.bin"
+# Avian
+alias toavianaw="ssh -i ~/.ssh/aviankey ubuntu@avianrobotics.com"
+function scpavian {
+	echo "Copying things from local $1 to remote $2";
+	scp -rv -i ~/.ssh/aviankey $1 ubuntu@avianrobotics.com:$2;
+}
+alias toavian="torepos; cd Avian"
+alias toaviansrv="toavi; cd AvianServer"
+function toapi { ssh pi@$1; }
+# misc
 alias totest="todev; cd test"
 alias tosite="cd ~/dev/liquiddandruff.github.com"
 alias tositecss="cd ~/dev/liquiddandruff.github.com/assets/themes/custom/css"
@@ -39,16 +68,12 @@ alias todb="cd ~/Dropbox"
 alias todl="cd ~/Downloads"
 alias todocs="cd ~/Documents"
 
+# projects
 alias tospeed="torepos; cd SpeedCrunch/src"
-
-alias toschool="todb; cd school"
 
 alias packagesite="rake theme:package name="custom""
 alias updatesite="tobin; ./blueVPSftp; cd -"
 alias _updatesite="tobin; ./lftpUpdate"
-
-alias setb="sudo su -c \"echo 4648 >/sys/class/backlight/intel_backlight/brightness\""
-function setbn { sudo su -c "echo $1 >/sys/class/backlight/intel_backlight/brightness"; }
 
 alias xzombies="ps aux | grep 'Z'"
 alias xsite="tosite; jekyll -w --safe server"
@@ -63,27 +88,43 @@ alias xsql="mysql -u root -p"
 alias xstudio="tostudio; ./bin/studio.sh"
 alias xstudioupdate="~/Desktop/android-studio/bin/update_studio.sh"
 alias xscrn="shutter"
+alias xard="todl; ./arduino-1.6.5/arduino"
+alias xdb="~/.dropbox-dist/dropboxd &"
+alias xesp="todl; java -jar ./ESPlorer/ESPlorer.jar"
 
 # utilities
+alias xwifimon="wavemon"
+alias gettree="ncdu"
 alias xtemp="sensors"
+# csa, 10.10.0.1, 1234567890,
 alias xap="sudo hotspotd start"
+alias xwifi="nmcli nm wifi\\"
 alias xbat="upower -i /org/freedesktop/UPower/devices/battery_BAT1"
 alias xdv="sudo hibernate"
 alias xcv='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend'
-alias xdb="~/.dropbox-dist/dropboxd &"
 alias xtheme="~/.config/awesome/switch-theme.sh"
-alias xhdmi="xrandr --output HDMI1 --mode 1920x1080 --right-of LVDS1"
+alias xhdmihr="xrandr --output HDMI1 --mode 1920x1080 --left-of LVDS1"
+alias xhdmilr="xrandr --output HDMI1 --mode 1680x1050 --left-of LVDS1"
 alias xhdmioff="xrandr --output HDMI1 --off"
-#remaps
+alias setb="sudo su -c \"echo 4648 >/sys/class/backlight/intel_backlight/brightness\""
+function setbn { sudo su -c "echo $1 >/sys/class/backlight/intel_backlight/brightness"; }
+function heylol {
+	"diff \\"
+}
+
+# remaps
+alias dus="du -hs * | sort -h"
 alias tmux="tmux -2"
 alias less="less -R" #enable color
 alias pdf="evince"
 alias h="history"
 alias pulseaudioc="pavucontrol"
-#ctrl+d don't exit shell
-set -o ignoreeof
+# git
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
- #history verify and expand !! etc
+# make ctrl+d don't exit shell
+set -o ignoreeof
+# history verify and expand !! etc
 shopt -s histverify
 
 # end custom settings
@@ -167,7 +208,7 @@ if [ -x /usr/bin/dircolors ]; then
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
+    alias grep='grep -n --color=always'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
@@ -196,8 +237,6 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 
 # custom PS1
