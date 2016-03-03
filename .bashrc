@@ -9,7 +9,13 @@ PATH=$PATH:~/GitRepos/esp-open-sdk/xtensa-lx106-elf/bin # add xtensa gcc to path
 PATH=$PATH:/usr/lib/postgresql/9.3/bin # postgres to path
 # arducopter
 PATH=$PATH:$HOME/GitRepos/Avian/ardupilot/Tools/autotest
-PATH=/usr/lib/ccache:$PATH
+PATH=$PATH:/usr/lib/ccache
+# typesafe activator
+PATH=$PATH:~/Downloads/activator-dist-1.3.7
+# virtualenv
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
 
 export ESP_HOME="/home/steven/GitRepos/esp-open-sdk"
 export SMING_HOME="/home/steven/GitRepos/Sming/Sming"
@@ -34,11 +40,29 @@ alias towm="cd ~/.config/awesome"
 alias todots="cd ~/dotfiles"
 alias torepos="cd ~/GitRepos"
 alias toschool="todb; cd school"
+alias toweb="toschool; cd CMPT470"
+alias tocum="cd ~/eclipseWorkspace/CMPT379-Fall-2015/grouse"
 alias xnas="thunar smb://10.42.0.19/media"
 # IdEA
 alias toidea="torepos; cd IdEA"
 alias tocsas="toidea; cd csa-site"
 alias xcsa="tocsas; ./manage.py runserver 0.0.0.0:11000"
+function xcsasubb {
+	mosquitto_sub -h stevenhuang.ca -p 12001 -u CSA_TEST -t $1 -v;
+}
+function xcsapub {
+	mosquitto_pub -h stevenhuang.ca -p 12001 -u CSA_TEST -t "$1" -m "$2";
+}
+function xcsabuild {
+	tocsaf; xarduino --$1 --board esp8266:esp8266:nodemcuv2 --port /dev/ttyUSB0 ./csaEspArdu/csaEspArdu.ino;
+}
+function xpointbuild {
+	toidea; xarduino --$1 --board esp8266:esp8266:nodemcuv2 --port /dev/$2 ./talkingPoint/talkingPoint.ino;
+}
+function xpowerbuild {
+	toidea; xarduino --$1 --board esp8266:esp8266:generic --port $2 ./smartOutlet/smartOutlet/smartOutlet.ino; cd -;
+}
+alias toarduinoesp="cd /home/steven/.arduino15/packages/esp8266/hardware/esp8266/1.6.5-1044-g170995a/libraries/"
 alias tocsaf="toidea; cd csa-firmware"
 alias tonode="torepos; cd nodemcu-firmware"
 alias toespsdk="cd ~/GitRepos/esp-open-sdk"
@@ -48,6 +72,7 @@ alias xflashAT="toespsdk; cd esptool/test; ../esptool.py --port /dev/ttyUSB0 wri
 alias xflashX="toespsdk; cd esptool/test; ../esptool.py --port /dev/ttyUSB0 write_flash 0x00000 blank.bin 0x01000 blank.bin 0x40000 blank.bin 0x7c000 blank.bin 0x7e000 blank.bin"
 # Avian
 alias toavianaw="ssh -i ~/.ssh/aviankey ubuntu@avianrobotics.com"
+alias toaviantest="ssh -i ~/.ssh/aviantestkey root@test.avianrobotics.com"
 function scpavian {
 	echo "Copying things from local $1 to remote $2";
 	scp -rv -i ~/.ssh/aviankey $1 ubuntu@avianrobotics.com:$2;
@@ -62,7 +87,7 @@ alias tositecss="cd ~/dev/liquiddandruff.github.com/assets/themes/custom/css"
 alias tositeposts="cd ~/dev/liquiddandruff.github.com/_posts"
 alias tositehtml="cd ~/dev/liquiddandruff.github.com/_includes/themes/custom"
 alias tovps="ssh root@192.3.169.100" 
-alias toram="ssh -i ~/.ssh/ram root@ansible.stevenhuang.ca"
+alias toram="ssh steven@ansible.stevenhuang.ca"
 alias toalex="ssh -i ~/.ssh/alexdo ansible@www.db.alexsepkowski.com -t 'command; bash -l'"
 alias todb="cd ~/Dropbox"
 alias todl="cd ~/Downloads"
@@ -88,9 +113,10 @@ alias xsql="mysql -u root -p"
 alias xstudio="tostudio; ./bin/studio.sh"
 alias xstudioupdate="~/Desktop/android-studio/bin/update_studio.sh"
 alias xscrn="shutter"
-alias xard="todl; ./arduino-1.6.5/arduino"
 alias xdb="~/.dropbox-dist/dropboxd &"
 alias xesp="todl; java -jar ./ESPlorer/ESPlorer.jar"
+alias xarduino="~/Downloads/arduino-1.6.5/arduino"
+alias xclip="xclip -selection c"
 
 # utilities
 alias xwifimon="wavemon"
@@ -103,6 +129,9 @@ alias xbat="upower -i /org/freedesktop/UPower/devices/battery_BAT1"
 alias xdv="sudo hibernate"
 alias xcv='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend'
 alias xtheme="~/.config/awesome/switch-theme.sh"
+alias xmonoff="xrandr --output LVDS1 --off --output HDMI1 --mode 1920x1080"
+alias xmonon="xrandr --output LVDS1 --output HDMI1 --off" 
+alias xhdmihrsame="xrandr --output HDMI1 --mode 1920x1080 --primary --same-as LVDS1"
 alias xhdmihr="xrandr --output HDMI1 --mode 1920x1080 --left-of LVDS1"
 alias xhdmilr="xrandr --output HDMI1 --mode 1680x1050 --left-of LVDS1"
 alias xhdmioff="xrandr --output HDMI1 --off"
@@ -124,6 +153,8 @@ alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %
 
 # make ctrl+d don't exit shell
 set -o ignoreeof
+# use vi bindings
+set -o vi
 # history verify and expand !! etc
 shopt -s histverify
 

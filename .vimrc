@@ -13,6 +13,10 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'ivanov/vim-ipython'
 " Node
 Plugin 'moll/vim-node'
+" Typescript
+Plugin 'leafgarland/typescript-vim'
+"Plugin 'Quramy/tsuquyomi'
+"Plugin 'Shougo/vimproc.vim'
 " JS syntax highlighting
 Plugin 'jelera/vim-javascript-syntax'
 " Close tags
@@ -245,3 +249,18 @@ function! s:DiffWithSaved()
   exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
 com! DiffSaved call s:DiffWithSaved()
+
+" word processing mode
+func! WordProcessorMode() 
+  setlocal formatoptions=1 
+  setlocal noexpandtab 
+  map j gj 
+  map k gk
+  setlocal spell spelllang=en_us 
+  set thesaurus+=/Users/sbrown/.vim/thesaurus/mthesaur.txt
+  set complete+=s
+  "set formatprg=par
+  setlocal wrap 
+  setlocal linebreak 
+endfu 
+com! WP call WordProcessorMode()
