@@ -1,0 +1,7 @@
+#include "/home/steven/.Xresources-hybrid"
+
+URxvt*font: xft:Terminess Powerline:size=9
+URxvt.scrollBar: false
+! remove ctrl+shift iso mode
+URxvt*iso14755: false
+URxvt.intensityStyles: false
