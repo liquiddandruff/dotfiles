@@ -29,4 +29,6 @@ cp $flags "${dotfile_dir}"/.* "$HOME"
 # Neovim
 mkdir -p "$HOME/.config/nvim"
 ln $flags "${dotfile_dir}/init.vim" "$HOME/.config/nvim"
-
+# Awesome
+mkdir -p "$HOME/.config/awesome"
+ln $flags "${dotfile_dir}/awesome/rc.lua" "$HOME/.config/awesome/rc.lua"

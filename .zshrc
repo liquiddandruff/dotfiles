@@ -1,105 +1,62 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/home/steven/.oh-my-zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
+# themes in ~/.oh-my-zsh/themes/
 ZSH_THEME="agnoster"
+#af-magic
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+HIST_STAMPS="mm/dd/yyyy"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
+# plugins in ~/.oh-my-zsh/plugins/
 plugins=(git vi-mode)
 
-# User configuration
-
-  export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
-# export MANPATH="/usr/local/man:$MANPATH"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 
 source $ZSH/oh-my-zsh.sh
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
 export PATH=$PATH:/home/steven/bin
 export EDITOR="nvim"
+# zsh vi-mode editor
 export VISUAL="nvim"
 alias vim="nvim"
 alias evimrc="vim ~/dotfiles/init.vim"
-alias ewm="vim ~/.config/awesome/rc.lua"
+alias ewm="vim ~/dotfiles/awesome/rc.lua"
 alias erc="nvim ~/.zshrc"
 alias src="source ~/.zshrc"
+# dirs
 alias torepos="cd ~/GitRepos"
 alias todots="cd ~/dotfiles"
+alias todb="cd ~/Dropbox"
+
+# programs
+alias xdb="dropbox &|"
 alias mp3dl="cd $HOME/Music && youtube-dl --extract-audio -f bestaudio --audio-format mp3 --no-playlist"
 
-function tosamba() {
+# throw away stdout and stderr, and disown
+pdf() {
+	zathura $1 &> /dev/null &|
+}
+
+# print service
+ccups() {
+	systemctl $1 org.cups.cupsd.service
+}
+
+tonas() {
 	smbclient //wdnas/Media $2 -U $1
 }
 
-function setbn() {
+setbn() {
 	sudo tee /sys/class/backlight/intel_backlight/brightness <<< $1
 }
+
+# fix keys
+# delete key
+bindkey "^[[3~" delete-char
+# home key
+bindkey "^[[7~" beginning-of-line
+# end key
+bindkey "^[[8~" end-of-line
 
 
 # Auto-completion
