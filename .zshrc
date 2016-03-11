@@ -54,6 +54,24 @@ tonas() {
 setbn() {
 	sudo tee /sys/class/backlight/intel_backlight/brightness <<< $1
 }
+setb() {
+	case $1 in
+	  h|'')
+	    setbn 4650;;
+	  m)
+	    setbn 1000;;
+	  l)
+	    setbn 0;;
+	esac
+	return
+	if [[ "$1" == "h" || -z $1 ]]; then
+	  setbn 4650
+	elif [[ "$1" == "m" ]]; then
+	  setbn 2000
+	elif [[ "$1" == "l" ]]; then
+	  setbn 0
+	fi
+}
 
 # fix keys
 # delete key
