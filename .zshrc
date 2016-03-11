@@ -27,8 +27,11 @@ alias src="source ~/.zshrc"
 alias torepos="cd ~/GitRepos"
 alias todots="cd ~/dotfiles"
 alias todb="cd ~/Dropbox"
+alias wtf="ping 8.8.8.8"
 
 # programs
+alias xwifi="systemctl start netctl-auto@wlp1s0"
+alias xwifikill="sudo ip link set wlp1s0 down"
 alias xdb="dropbox &|"
 alias mp3dl="cd $HOME/Music && youtube-dl --extract-audio -f bestaudio --audio-format mp3 --no-playlist"
 

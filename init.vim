@@ -7,6 +7,12 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/plugged')
+	" YCM
+	Plug 'Valloric/YouCompleteMe'
+		nnoremap <Space>d :YcmCompleter GoTo<CR>
+		nnoremap <Space>r :YcmCompleter GoToReferences<CR>
+	" Smart Indents
+	Plug 'tpope/vim-sleuth'
 	" Unite
 	Plug 'Shougo/unite.vim'
 	" Undo tree
