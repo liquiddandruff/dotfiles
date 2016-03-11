@@ -29,6 +29,8 @@ alias todots="cd ~/dotfiles"
 alias todb="cd ~/Dropbox"
 alias wtf="ping 8.8.8.8"
 
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
 # programs
 alias xwifi="systemctl start netctl-auto@wlp1s0"
 alias xwifikill="sudo ip link set wlp1s0 down"
