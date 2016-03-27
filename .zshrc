@@ -23,32 +23,46 @@ alias evimrc="vim ~/dotfiles/init.vim"
 alias ewm="vim ~/dotfiles/awesome/rc.lua"
 alias erc="nvim ~/.zshrc"
 alias src="source ~/.zshrc"
-# dirs
+
+# to dirs
 alias torepos="cd ~/GitRepos"
 alias todots="cd ~/dotfiles"
 alias todb="cd ~/Dropbox"
+alias todl="cd ~/Downloads"
 alias wtf="ping 8.8.8.8"
 
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
-# programs
+# execute
 alias xwifi="systemctl start netctl-auto@wlp1s0"
 alias xwifikill="sudo ip link set wlp1s0 down"
 alias xdb="dropbox &|"
 alias mp3dl="cd $HOME/Music && youtube-dl --extract-audio -f bestaudio --audio-format mp3 --no-playlist"
+
+# replace in out
+replace() {
+  ag -l $1 | xargs perl -pi.bak -e "s/$1/$2/g"
+}
 
 # throw away stdout and stderr, and disown
 pdf() {
 	zathura $1 &> /dev/null &|
 }
 
-# print service
+# control print service
 ccups() {
 	systemctl $1 org.cups.cupsd.service
 }
 
+# tonas USER PASS
 tonas() {
 	smbclient //wdnas/Media $2 -U $1
+}
+
+# mountnas USER PASS
+mountnas() {
+	sudo mkdir /mnt/nas
+	sudo mount -t cifs //wdnas/Media /mnt/nas -o user=$1,password=$2
 }
 
 setbn() {
@@ -80,6 +94,19 @@ bindkey "^[[3~" delete-char
 bindkey "^[[7~" beginning-of-line
 # end key
 bindkey "^[[8~" end-of-line
+
+# save path on cd
+function cd {
+    builtin cd $@
+    pwd > ~/.last_dir
+}
+# restore last saved path
+if [ -f ~/.last_dir ]
+    then cd `cat ~/.last_dir`
+fi
+
+# end config
+# --------------------------------------------------------------------------------
 
 
 # Auto-completion

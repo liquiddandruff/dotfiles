@@ -11,6 +11,9 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'Valloric/YouCompleteMe'
 		nnoremap <Space>d :YcmCompleter GoTo<CR>
 		nnoremap <Space>r :YcmCompleter GoToReferences<CR>
+	" CtrlP
+	Plug 'ctrlpvim/ctrlp.vim'
+		nnoremap <Space>p :CtrlPBuffer<CR>
 	" Smart Indents
 	Plug 'tpope/vim-sleuth'
 	" Unite
@@ -78,6 +81,7 @@ call plug#begin('~/.config/nvim/plugged')
 	  endif
 	endfunction
 	Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+		let g:markdown_composer_autostart = 0
 	" Filetype plugins
 	Plug 'sheerun/vim-polyglot'
 	" Jellybean colorscheme
@@ -119,6 +123,9 @@ set statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 " natural splits
 set splitbelow
 set splitright
+
+" gf to correctly open files when working on js
+set suffixesadd+=.js
 
 "" mappings
 " instead of ctr-w then j, just ctr-j

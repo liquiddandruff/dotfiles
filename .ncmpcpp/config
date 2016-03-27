@@ -29,9 +29,10 @@ lyrics_directory = "~/.lyrics"
 #
 ## set it in order to make tag editor and renaming files work properly
 #
-mpd_host = "localhost"
+#mpd_host = "/tmp/mpd.sock"
+mpd_host = "Steven-PC"
 #
-mpd_port = "6600"
+#mpd_port = "6600"
 #
 mpd_music_dir = "~/Music"
 #
@@ -154,7 +155,7 @@ message_delay_time = "3"
 ##
 ## text can also have different color than the main window has,
 ## eg. if you want length to be green, write $3%l$9
-##
+#t
 ## available values:
 ##
 ## - 0 - default window color (discards all other colors)
@@ -267,7 +268,7 @@ now_playing_suffix = "$2$/u$2"
 ## not available.
 ##
 #
-song_columns_list_format = "(10)[black]{l} (30)[blue]{a} (30)[green]{b} (30)[magenta]{t}"
+song_columns_list_format = "(10)[white]{l} (30)[blue]{a} (30)[green]{b} (30)[magenta]{t}"
 
 #
 ##### various settings #####
@@ -317,7 +318,7 @@ progressbar_boldness = "no"
 #
 default_place_to_search_in = "database" (database/playlist)
 #
-user_interface = "classic" (classic/alternative)
+user_interface = "alternative" (classic/alternative)
 #
 #media_library_left_column = "a" (possible values: a,y,g,c,p, legend above)
 #
@@ -433,7 +434,7 @@ empty_tag_marker = "<empty>"
 #
 #media_library_sort_by_mtime = "no"
 #
-enable_window_title = "no"
+enable_window_title = "yes"
 #
 ##
 ## Note: You can choose default search mode for search
@@ -459,7 +460,7 @@ search_engine_default_search_mode = "1"
 #
 #allow_physical_directories_deletion = "no"
 #
-external_editor = "vim"
+external_editor = "nvim"
 #
 use_console_editor = "yes" #(set to yes, if your editor is console app)
 #
@@ -485,7 +486,7 @@ main_window_color = "blue"
 #
 main_window_highlight_color = "white"
 #
-progressbar_color = "black"
+progressbar_color = "white"
 #
 progressbar_elapsed_color = "cyan"
 #
