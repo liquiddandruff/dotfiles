@@ -21,6 +21,7 @@ export VISUAL="nvim"
 alias vim="nvim"
 alias evimrc="vim ~/dotfiles/init.vim"
 alias ewm="vim ~/dotfiles/awesome/rc.lua"
+alias emp="vim ~/dotfiles/.ncmpcpp/config"
 alias erc="nvim ~/.zshrc"
 alias src="source ~/.zshrc"
 
@@ -85,6 +86,48 @@ setb() {
 	elif [[ "$1" == "l" ]]; then
 	  setbn 0
 	fi
+}
+
+# fast cd to school hw
+tohw() {
+  #PS3="Pick dir: " 
+  todb;
+  cd school;
+  # init empty array
+  dirs=()
+  for DIR in `find . -mindepth 1 -maxdepth 1 -type d`; do
+    dirs+=($DIR)
+  done
+  # if passed index and index exists in dirs, cd to it
+  if [[ -n $1 && -n ${dirs[$1]} ]]; then
+    cd ${dirs[$1]}
+    return
+  fi
+  select opt in "${dirs[@]}"
+  do
+    # if opt is empty, ask again
+    if [[ -z $opt ]]; then
+      continue
+    fi
+    case $REPLY in
+      *) 
+	cd $opt
+	break
+	;;
+    esac
+  done
+}
+
+# colorize manpages
+man() {
+    env LESS_TERMCAP_mb=$'\E[01;31m' \
+    LESS_TERMCAP_md=$'\E[01;38;5;74m' \
+    LESS_TERMCAP_me=$'\E[0m' \
+    LESS_TERMCAP_se=$'\E[0m' \
+    LESS_TERMCAP_so=$'\E[38;5;246m' \
+    LESS_TERMCAP_ue=$'\E[0m' \
+    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
+    man "$@"
 }
 
 # fix keys
@@ -169,3 +212,5 @@ bindkey '^R' fzf-history-widget
 
 fi
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

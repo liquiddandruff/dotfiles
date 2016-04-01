@@ -12,12 +12,24 @@ call plug#begin('~/.config/nvim/plugged')
 		nnoremap <Space>d :YcmCompleter GoTo<CR>
 		nnoremap <Space>r :YcmCompleter GoToReferences<CR>
 	" CtrlP
-	Plug 'ctrlpvim/ctrlp.vim'
-		nnoremap <Space>p :CtrlPBuffer<CR>
+	"Plug 'ctrlpvim/ctrlp.vim'
+	" Vim fzf
+	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+	Plug 'junegunn/fzf.vim'
+		" Mapping selecting mappings
+		nnoremap <silent> <C-p> :Files<CR>
+		nnoremap <silent> <Space>p :GitFiles<CR>
+		nnoremap <silent> <Space>o :Buffers<CR>
+		nnoremap <silent> <Space>i :Lines<CR>
 	" Smart Indents
 	Plug 'tpope/vim-sleuth'
 	" Unite
 	Plug 'Shougo/unite.vim'
+	" HTML
+	Plug 'mattn/emmet-vim'
+	" Auto close tags
+	Plug 'alvan/vim-closetag'
+		let g:closetag_filenames = "*.html,*.jsx,*.js"
 	" Undo tree
 	Plug 'sjl/gundo.vim'
 		nnoremap <F5> :GundoToggle<CR>
@@ -152,6 +164,9 @@ vnoremap k gk
 " include the default behaviour by doing reverse mappings so you can move linewise with gj and gk:
 nnoremap gj j
 nnoremap gk k
+" easier buffer nav
+nnoremap ,l :bn<Cr>
+nnoremap ,; :bp<Cr>
 
 
 " persistent undos and swap dir
@@ -180,20 +195,6 @@ let g:python3_host_skip_check= 1
 
 
 "" functions
-" Better Buffer Navigation
-" Maps <Tab> to cycle though buffers but only if they're modifiable.
-" If they're unmodifiable it maps <Tab> to cycle through splits.
-function! BetterBufferNav(bcmd)
-	if &modifiable == 1 || &ft == 'help'
-		execute a:bcmd
-		"call PersistentEcho(" ")
-	else
-		wincmd w
-	endif
-endfunction
-" Maps Tab and Shift Tab to cycle through buffers
-nmap <silent> <Tab> :call BetterBufferNav("bn") <Cr>
-nmap <silent> <S-Tab> :call BetterBufferNav("bp") <Cr>
 
 " Quick Terminal
 " Spawns a terminal in a small split for quick typing of commands
@@ -240,3 +241,14 @@ func! WordProcessorMode()
   setlocal linebreak 
 endfu 
 com! WordProcessor call WordProcessorMode()
+
+" Append modeline after last line in buffer.
+" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
+" files.
+function! AppendModeline()
+  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+        \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+  call append(line("$"), l:modeline)
+endfunction
+nnoremap <silent> <Leader>ml :call AppendModeline()<CR>

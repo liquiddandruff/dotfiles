@@ -29,8 +29,8 @@ lyrics_directory = "~/.lyrics"
 #
 ## set it in order to make tag editor and renaming files work properly
 #
-#mpd_host = "/tmp/mpd.sock"
-mpd_host = "Steven-PC"
+mpd_host = "/tmp/mpd.sock"
+#mpd_host = "Steven-PC"
 #
 #mpd_port = "6600"
 #
@@ -207,7 +207,8 @@ browser_sort_format = "{%a - }{%t}|{%f} {(%l)}"
 ## with reversed colors.
 ##
 #
-alternative_header_first_line_format = "{$b$1%t$9$/b}"
+#alternative_header_first_line_format = "{$b$1%t$9$/b}"
+alternative_header_first_line_format ="{$5%t$9}"
 #
 alternative_header_second_line_format ="$0{%a} $b$8-$9$/b {%b}$9"
 #
@@ -268,7 +269,9 @@ now_playing_suffix = "$2$/u$2"
 ## not available.
 ##
 #
-song_columns_list_format = "(10)[white]{l} (30)[blue]{a} (30)[green]{b} (30)[magenta]{t}"
+#song_columns_list_format = "(8)[white]{l} (30)[blue]{a} (30)[red]{b} (30)[magenta]{t}"
+#song_columns_list_format = "(8)[white]{l} (30)[blue]{ar} (30)[red]{b} (30)[magenta]{tr}"
+song_columns_list_format = "(8)[white]{l} (30)[blue]{tr|fr} (30)[red]{b} (30)[magenta]{ar}"
 
 #
 ##### various settings #####
@@ -302,7 +305,7 @@ seek_time = "1"
 #
 autocenter_mode = "yes"
 #
-centered_cursor = "no"
+centered_cursor = "yes"
 #
 ##
 ## Note: You can specify third character which will
@@ -397,7 +400,7 @@ store_lyrics_in_song_dir = "no"
 ## Note: You can define startup screen for ncmpcpp
 ## by choosing screen number from the list above.
 ##
-#startup_screen = "2"
+startup_screen = "browser"
 #
 jump_to_now_playing_song_at_start = "yes"
 #
@@ -486,9 +489,9 @@ main_window_color = "blue"
 #
 main_window_highlight_color = "white"
 #
-progressbar_color = "white"
+progressbar_color = "black"
 #
-progressbar_elapsed_color = "cyan"
+progressbar_elapsed_color = "red"
 #
 statusbar_color = "red"
 #
