@@ -14,8 +14,16 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin
 
 source $ZSH/oh-my-zsh.sh
 
-export PATH=$PATH:/home/steven/bin
+# virtualenv
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/bin/virtualenvwrapper.sh
+
+unsetopt AUTO_CD
+
+export PATH=$PATH:/home/steven/bin:/home/steven/Android/Sdk/platform-tools
+export VISUAL="nvim"
 export EDITOR="nvim"
+export ANDROID_HOME=/home/steven/Android/Sdk
 # zsh vi-mode editor
 export VISUAL="nvim"
 alias vim="nvim"
@@ -37,8 +45,13 @@ alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %
 # execute
 alias xwifi="systemctl start netctl-auto@wlp1s0"
 alias xwifikill="sudo ip link set wlp1s0 down"
+alias xwifiup="sudo ip link set wlp1s0 up"
 alias xdb="dropbox &|"
 alias mp3dl="cd $HOME/Music && youtube-dl --extract-audio -f bestaudio --audio-format mp3 --no-playlist"
+alias xsd="sudo mount -t vfat /dev/sdb /mnt/sd"
+alias xunmountsd="sync; sudo umount /mnt/sd"
+# ipython in venv
+alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
 
 # replace in out
 replace() {
