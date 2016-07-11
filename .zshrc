@@ -53,6 +53,26 @@ alias xunmountsd="sync; sudo umount /mnt/sd"
 # ipython in venv
 alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
 
+# system alias
+# get more usb info (bus, port, etc)
+alias xlsusb='sudo cat /sys/kernel/debug/usb/devices | grep -E "^([TSPD]:.*|)$"'
+alias xsby="xset dpms force standby"
+alias xbat="cat /sys/class/power_supply/BAT1/capacity | xargs -i echo {}%"
+
+# notes
+# clipboard stuff
+# CLIPBOARD output: xsel -b -o 
+# PRIMARY input: xsel -i 
+#
+# get args from prev command
+# !line :column
+# !* all args, !:0 command name, !:2 second arg, !:$ last arg
+
+# screenshot
+xscn() {
+  import -window root /tmp/$(date '+%Y%m%d-%H%M%S').png
+}
+
 # replace in out
 replace() {
   ag -l $1 | xargs perl -pi.bak -e "s/$1/$2/g"
