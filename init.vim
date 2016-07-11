@@ -9,6 +9,8 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 	" YCM
 	Plug 'Valloric/YouCompleteMe'
+		let g:ycm_confirm_extra_conf=0
+		let g:ycm_collect_identifiers_from_tags_files=1
 		nnoremap <Space>d :YcmCompleter GoTo<CR>
 		nnoremap <Space>r :YcmCompleter GoToReferences<CR>
 	" CtrlP
@@ -23,6 +25,8 @@ call plug#begin('~/.config/nvim/plugged')
 		nnoremap <silent> <Space>i :Lines<CR>
 	" Smart Indents
 	Plug 'tpope/vim-sleuth'
+	" Autoindent
+	Plug 'Chiel92/vim-autoformat'
 	" Unite
 	Plug 'Shougo/unite.vim'
 	" HTML
@@ -167,7 +171,8 @@ nnoremap gk k
 " easier buffer nav
 nnoremap ,l :bn<Cr>
 nnoremap ,; :bp<Cr>
-
+" easier pop back from jumping to tag
+nnoremap <C-[> <C-t>
 
 " persistent undos and swap dir
 set backupdir=~/.config/nvim/tmp/backups//
@@ -193,6 +198,8 @@ let g:python3_host_skip_check= 1
 "let g:loaded_python_provider = 1
 "let g:loaded_python3_provider = 1
 
+" use %% to expand dir of current buffer, to edit other files in same dir
+cabbr <expr> %% expand('%:p:h')
 
 "" functions
 

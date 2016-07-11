@@ -14,8 +14,8 @@ ln $flags "${dotfile_dir}/.ncmpcpp" "$HOME/.ncmpcpp"
 
 # Scripts
 mkdir -p "$HOME/bin"
-ln $flags "${dotfile_dir}/scripts/"*.sh "$HOME/bin"
-ln $flags "${dotfile_dir}/scripts/"**/*.sh "$HOME/bin"
+ln $flags "${dotfile_dir}/bin/"*.sh "$HOME/bin"
+ln $flags "${dotfile_dir}/bin/"**/*.sh "$HOME/bin"
 # Drop the ".sh" from all scripts.
 for script in "$HOME/bin/"*.sh; do mv "$script" "${script/'.sh'}"; done
 
