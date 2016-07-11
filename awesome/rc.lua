@@ -119,7 +119,7 @@ clockicon = wibox.widget.imagebox(beautiful.widget_clock)
 
 mytextclock = lain.widgets.abase({
     timeout  = 60,
-    cmd      = "date +'%a %d %b %R'",
+    cmd      = "date +'%a %d %b %r'",
     settings = function()
         widget:set_text(" " .. output)
     end
@@ -407,16 +407,16 @@ globalkeys = awful.util.table.join(
     --awful.key({ altkey }, "Right", function () lain.util.tag_view_nonempty(1) end),
 
     -- Default client focus
-    awful.key({ altkey }, "k",
-        function ()
-            awful.client.focus.byidx( 1)
-            if client.focus then client.focus:raise() end
-        end),
-    awful.key({ altkey }, "j",
-        function ()
-            awful.client.focus.byidx(-1)
-            if client.focus then client.focus:raise() end
-        end),
+    -- awful.key({ altkey }, "k",
+    --     function ()
+    --         awful.client.focus.byidx( 1)
+    --         if client.focus then client.focus:raise() end
+    --     end),
+    -- awful.key({ altkey }, "j",
+    --     function ()
+    --         awful.client.focus.byidx(-1)
+    --         if client.focus then client.focus:raise() end
+    --     end),
 
     -- By direction client focus
     awful.key({ modkey }, "j",
@@ -484,8 +484,8 @@ globalkeys = awful.util.table.join(
 
     -- Widgets popups
 	-- disable clock popup for fzf cd dir
-    --awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
-    awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
+    -- awful.key({ altkey,           }, "c",      function () lain.widgets.calendar:show(7) end),
+    -- awful.key({ altkey,           }, "h",      function () fswidget.show(7) end),
 
     -- ALSA volume control
     awful.key({ altkey }, "Up",
