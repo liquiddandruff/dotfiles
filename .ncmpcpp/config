@@ -271,7 +271,7 @@ now_playing_suffix = "$2$/u$2"
 #
 #song_columns_list_format = "(8)[white]{l} (30)[blue]{a} (30)[red]{b} (30)[magenta]{t}"
 #song_columns_list_format = "(8)[white]{l} (30)[blue]{ar} (30)[red]{b} (30)[magenta]{tr}"
-song_columns_list_format = "(8)[white]{l} (30)[blue]{tr|fr} (30)[red]{b} (30)[magenta]{ar}"
+song_columns_list_format = "(8)[white]{l} (45)[blue]{f} (25)[red]{b} (30)[magenta]{ar}"
 
 #
 ##### various settings #####
@@ -291,11 +291,11 @@ playlist_shorten_total_times = "no"
 #
 #playlist_separate_albums = "no"
 #
-playlist_display_mode = "classic" (classic/columns)
+playlist_display_mode = "columns" (classic/columns)
 #
-browser_display_mode = "classic" (classic/columns)
+browser_display_mode = "columns" (classic/columns)
 #
-search_engine_display_mode = "classic" (classic/columns)
+search_engine_display_mode = "columns" (classic/columns)
 #
 #discard_colors_if_item_is_selected = "yes"
 #
