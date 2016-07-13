@@ -5,3 +5,16 @@ URxvt.scrollBar: false
 ! remove ctrl+shift iso mode
 URxvt*iso14755: false
 URxvt.intensityStyles: false
+
+URxvt*perl-lib: /usr/lib/urxvt/perl/
+URxvt*perl-ext-common: default,matcher,resize-font
+URxvt*urlLauncher: /usr/bin/chromium
+URxvt*matcher.button: 1
+
+! disable default bindings to allow ctrl+shift bindings
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+! live resize fonts
+URxvt.resize-font.smaller: C-Down
+URxvt.resize-font.bigger: C-Up
