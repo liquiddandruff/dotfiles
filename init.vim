@@ -1,3 +1,7 @@
+" notes
+" :r! echo %
+
+
 "let g:python_host_prog='/usr/bin/python2'
 " auto install plug if not found
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -7,14 +11,35 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.config/nvim/plugged')
+	" Editor config
+	Plug 'editorconfig/editorconfig-vim'
 	" YCM
 	Plug 'Valloric/YouCompleteMe'
 		let g:ycm_confirm_extra_conf=0
 		let g:ycm_collect_identifiers_from_tags_files=1
 		nnoremap <Space>d :YcmCompleter GoTo<CR>
+		nnoremap <Space>e :YcmCompleter GoToDefinition<CR>
+		nnoremap <Space>w :YcmCompleter GetDoc<CR>
+		nnoremap <Space>q :YcmCompleter GoToInclude<CR>
+		" python only
 		nnoremap <Space>r :YcmCompleter GoToReferences<CR>
-	" CtrlP
-	"Plug 'ctrlpvim/ctrlp.vim'
+		" On update...
+		" Regen makefiles
+		" $ cmake -G "Unix Makefiles" -DPATH_TO_LLVM_ROOT=~/ycm_temp/llvm_root_dir . ~/.config/nvim/plugged/YouCompleteMe/third_party/ycmd/cpp
+		" Make it
+		" $ cmake --build . --target ycm_core
+	" UltiSnips engine
+	Plug 'SirVer/ultisnips'
+		let g:UltiSnipsExpandTrigger="<c-x>"
+		let g:UltiSnipsJumpForwardTrigger="<c-b>"
+		let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+	" UltiSnips snippets
+	Plug 'honza/vim-snippets'
+	" Doxygen snippets gen
+	Plug 'mrtazz/DoxygenToolkit.vim'
+		nnoremap <Space>j :Dox<CR>
+	" Doxygen/Javadoc highlighting
+	Plug 'vim-scripts/DoxyGen-Syntax'
 	" Vim fzf
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
@@ -52,6 +77,9 @@ call plug#begin('~/.config/nvim/plugged')
 	" File browser
 	Plug 'scrooloose/nerdtree'
 		nnoremap <F6> :NERDTreeToggle<CR>
+	" Ctags tagbar 
+	Plug 'majutsushi/tagbar'
+		nmap <Return> :TagbarToggle<CR>
 	" Async lint
 	Plug 'benekastah/neomake'
 		let g:neomake_open_list = 1
@@ -151,6 +179,8 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 inoremap jk <Esc>
 inoremap JK <Esc>
+" map F4 to toggle header/source file
+map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 " write when not sudo
 cmap w!! w !sudo tee % >/dev/null
 " Terminal Splits

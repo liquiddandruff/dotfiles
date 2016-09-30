@@ -49,15 +49,25 @@ alias xwifiup="sudo ip link set wlp1s0 up"
 alias xdb="dropbox &|"
 alias mp3dl="cd $HOME/Music && youtube-dl --extract-audio -f bestaudio --audio-format mp3 --no-playlist"
 alias xsd="sudo mount -t vfat /dev/sdb /mnt/sd"
+alias xusb="sudo mount /dev/sdb1 /mnt/usb"
 alias xunmountsd="sync; sudo umount /mnt/sd"
+alias xunmountusb="sync; sudo umount /mnt/usb"
+alias xtags="ctags -R --exclude=.git .; du -sh tags"
+
+# program re-aliases
 # ipython in venv
 alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
+# always show statusbar, scale to screen, vi keys
+alias qiv="qiv -Im --vikeys"
 
 # system alias
 # get more usb info (bus, port, etc)
 alias xlsusb='sudo cat /sys/kernel/debug/usb/devices | grep -E "^([TSPD]:.*|)$"'
-alias xsby="xset dpms force standby"
+# sleep screen
+alias xsleep="xset dpms force standby"
 alias xbat="cat /sys/class/power_supply/BAT1/capacity | xargs -i echo {}%"
+# stop ghostscript from coming up when I mistype gst (git status alias)
+alias gs=""
 
 # notes
 # clipboard stuff
@@ -68,9 +78,29 @@ alias xbat="cat /sys/class/power_supply/BAT1/capacity | xargs -i echo {}%"
 # !line :column
 # !* all args, !:0 command name, !:2 second arg, !:$ last arg
 
+## bluetooth excursion
+# systemctl start bluetooth.service
+# bluetoothctl
+#
+## pa stuff
+# pulseaudio --kill
+# pamixer
+# pactl
+# pacmd
+### sinks http://unix.stackexchange.com/questions/65246/change-pulseaudio-input-output-from-shell
+# pactl list short sink-inputs
+# pactl move-sink-input <ID> <SINK>
+#
+## reset alsa when fubar
+# alsactl restore
+#
+
 # screenshot
 xscn() {
   import -window root /tmp/$(date '+%Y%m%d-%H%M%S').png
+}
+xscnw() {
+  sleep 2; import root /tmp/$(date '+%Y%m%d-%H%M%S').png
 }
 
 # replace in out
@@ -97,6 +127,10 @@ tonas() {
 mountnas() {
 	sudo mkdir /mnt/nas
 	sudo mount -t cifs //wdnas/Media /mnt/nas -o user=$1,password=$2
+}
+# unmount nas, all, lazy
+umountnas() {
+	sudo umount -a -t cifs -l /mnt/nas
 }
 
 setbn() {
@@ -151,6 +185,35 @@ tohw() {
   done
 }
 
+# mv gcode to sd
+xgcode() {
+  # init empty array
+  gcodeFiles=()
+  # find ~/Downloads -cnewer ~/Downloads/z_stop_upSlic3r.gcode -name "*.gcode"
+  # find ~/Downloads -name "*.gcode" -exec ls -t "{}" +; 
+  for gcode in `find ~/Downloads -name "*.gcode" -exec ls -t "{}" +;`; do
+    gcodeFiles+=($gcode)
+  done
+  # if passed index and index exists in gcodeFiles, move it
+  if [[ -n $1 && -n ${gcodeFiles[$1]} ]]; then
+    sudo cp -v ${gcodeFiles[$1]} /mnt/sd
+    return
+  fi
+  select opt in "${gcodeFiles[@]}"
+  do
+    # if opt is empty, ask again
+    if [[ -z $opt ]]; then
+      continue
+    fi
+    case $REPLY in
+      *) 
+	sudo cp -v $opt /mnt/sd
+	break
+	;;
+    esac
+  done
+}
+
 # colorize manpages
 man() {
     env LESS_TERMCAP_mb=$'\E[01;31m' \
@@ -165,11 +228,14 @@ man() {
 
 # fix keys
 # delete key
-bindkey "^[[3~" delete-char
+#bindkey "^[[3~" delete-char
 # home key
-bindkey "^[[7~" beginning-of-line
+#bindkey "^[[7~" beginning-of-line
 # end key
-bindkey "^[[8~" end-of-line
+#bindkey "^[[8~" end-of-line
+
+# shift up down left right arrows
+#^[[5~^[[6~^[[7~^[[8~
 
 # save path on cd
 function cd {
