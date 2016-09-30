@@ -13,6 +13,9 @@ def_key "j"
 def_key "k"
 	scroll_up
 
+def_key "space"
+	toggle_visualization_type
+
 
 def_key "ctrl-u"
 	page_up
