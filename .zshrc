@@ -69,33 +69,39 @@ alias xbat="cat /sys/class/power_supply/BAT1/capacity | xargs -i echo {}%"
 # stop ghostscript from coming up when I mistype gst (git status alias)
 alias gs=""
 
-# notes
-# clipboard stuff
-# CLIPBOARD output: xsel -b -o 
+##### notes
+### clipboard stuff
+# CLIPBOARD output: xsel -bo 
 # PRIMARY input: xsel -i 
-#
-# get args from prev command
-# !line :column
-# !* all args, !:0 command name, !:2 second arg, !:$ last arg
 
-## bluetooth excursion
-# systemctl start bluetooth.service
-# bluetoothctl
-#
-## pa stuff
-# pulseaudio --kill
-# pamixer
-# pactl
-# pacmd
-### sinks http://unix.stackexchange.com/questions/65246/change-pulseaudio-input-output-from-shell
-# pactl list short sink-inputs
-# pactl move-sink-input <ID> <SINK>
-#
+### get args from prev command
+# $ !line :column
+# $ !* all args, !:0 command name, !:2 second arg, !:$ last arg
+
+### bluetooth excursion
+# $ systemctl start bluetooth.service
+# $ bluetoothctl
+
+### pa stuff
+# $ pulseaudio --kill
+# $ pamixer
+# $ pactl
+# $ pacmd
+## sinks http://unix.stackexchange.com/questions/65246/change-pulseaudio-input-output-from-shell
+# $ pactl list short sink-inputs
+# $ pactl move-sink-input <ID> <SINK>
 ## reset alsa when fubar
-# alsactl restore
+# $ alsactl restore
 #
+
+### tar lol
+## make archive
+# $ tar -zcvf out.tar.gz ./dir
+## extract archive
+# $ tar -zxvf out.tar.gz -C ./out
 
 # screenshot
+# $ shutter
 xscn() {
   import -window root /tmp/$(date '+%Y%m%d-%H%M%S').png
 }
