@@ -19,6 +19,14 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 
+LOG_FILE=`dirname $0`"/imgur.log"
+
+# fd 3 is stdout, fd 4 is stderr, redirect 1 and 2 to logfile
+exec 3>&1 4>&2 1>>${LOG_FILE} 2>&1
+
+# log the date
+echo
+echo `date`
 
 # Based the work of Bart Nagel <bart@tremby.net>
 # If you have rate limit issues, get your own key at http://api.imgur.com/
@@ -30,7 +38,7 @@ function usage {
 	echo "Usage: $(basename "$0") [filenames]
 Upload images to imgur, print their URLs to stdout, and print the delete pages URL to stderr.
 If you're on a Mac or have xsel/xclip, copy the images URLs to the clipboard.
-If you don't especify any filename, they will be read from standard input." >&2
+If you don't especify any filename, they will be read from standard input." | tee /dev/fd/4
 }
 
 function upload_image {
@@ -53,7 +61,7 @@ function parse_delete_url_from_response {
 
 # check API key has been entered
 if [ "$CLIENT_ID" = "Your Client ID" ]; then
-	echo "You first need to edit the script and put your API key in the variable near the top." >&2
+	echo "You first need to edit the script and put your API key in the variable near the top." | tee /dev/fd/4
 	exit 15
 fi
 
@@ -68,7 +76,7 @@ fi
 
 # check curl is available
 which curl &>/dev/null || {
-	echo "Couln't find curl, which is required." >&2
+	echo "Couln't find curl, which is required." | tee /dev/fd/4
 	exit 17
 }
 
@@ -105,14 +113,14 @@ for file in $files_to_upload; do
 	# this stops the batch operation, which seems the best course of action
 	# since the script has such detailed error levels
 	if [ $? -ne 0 ]; then
-		echo "Upload failed" >&2
+		echo "Upload failed" | tee /dev/fd/4
 		exit 2
 	elif [ "$(echo "$response" | grep -c "<error_msg>")" -gt 0 ]; then
-		echo "Error message from imgur:" >&2
-		echo "$response" | sed -E 's/.*<error_msg>(.*)<\/error_msg>.*/\1/' >&2
+		echo "Error message from imgur:" | tee /dev/fd/4
+		echo "$response" | sed -E 's/.*<error_msg>(.*)<\/error_msg>.*/\1/' | tee /dev/fd/4
 		exit 3
 	elif [[ "$response" != *deletehash* ]]; then
-		echo "Unknown Failure: Imgur is probably down for maintenance."
+		echo "Unknown Failure: Imgur is probably down for maintenance." | tee /dev/fd/4
 		exit 4
 	fi
 
@@ -128,8 +136,9 @@ for file in $files_to_upload; do
 		list_urls="$list_urls"$'\n'"$url"
 	fi
 
-	echo "$url"
-	echo "Delete page: $deleteurl" >&2
+	echo "File: $file"
+	echo "$url" | tee /dev/fd/3
+	echo "Delete page: $deleteurl" | tee /dev/fd/4
 done
 IFS=$ifs_old
 
@@ -138,5 +147,5 @@ if [ $CLIPBOARD == true ]; then
 	{ which pbcopy &>/dev/null && echo -n "$list_urls" | pbcopy; } \
 		|| { which xsel &>/dev/null && echo -n "$list_urls" | xsel --input --clipboard; } \
 		|| { which xclip &>/dev/null && echo -n "$list_urls" | xclip -selection clipboard; } \
-		|| echo "Haven't copied to the clipboard: no pbcopy, xsel, or xclip" >&2
+		|| echo "Haven't copied to the clipboard: no pbcopy, xsel, or xclip" | tee /dev/fd/4
 fi
