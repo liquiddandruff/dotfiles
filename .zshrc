@@ -1,3 +1,8 @@
+# always use tmux
+#if [[ ! $TERM =~ screen ]]; then
+    #exec tmux
+#fi
+
 # Path to your oh-my-zsh installation.
 export ZSH=/home/steven/.oh-my-zsh
 
@@ -26,19 +31,22 @@ export EDITOR="nvim"
 export ANDROID_HOME=/home/steven/Android/Sdk
 # zsh vi-mode editor
 export VISUAL="nvim"
+
+# edit
 alias vim="nvim"
 alias evimrc="vim ~/dotfiles/init.vim"
 alias ewm="vim ~/dotfiles/awesome/rc.lua"
+alias etmux="vim ~/dotfiles/.tmux.conf"
 alias emp="vim ~/dotfiles/.ncmpcpp/config"
 alias erc="nvim ~/.zshrc"
 alias src="source ~/.zshrc"
 
 # to dirs
 alias torepos="cd ~/GitRepos"
+alias tosat="torepos; cd SFUSat"
 alias todots="cd ~/dotfiles"
 alias todb="cd ~/Dropbox"
 alias todl="cd ~/Downloads"
-alias wtf="ping 8.8.8.8"
 
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
@@ -48,31 +56,54 @@ alias xwifikill="sudo ip link set wlp1s0 down"
 alias xwifiup="sudo ip link set wlp1s0 up"
 alias xdb="dropbox &|"
 alias mp3dl="cd $HOME/Music && youtube-dl --extract-audio -f bestaudio --audio-format mp3 --no-playlist"
-alias xsd="sudo mount -t vfat /dev/sdb /mnt/sd"
+alias xsd="sudo mount -t auto /dev/sdb1 /mnt/sd"
 alias xusb="sudo mount /dev/sdb1 /mnt/usb"
 alias xunmountsd="sync; sudo umount /mnt/sd"
 alias xunmountusb="sync; sudo umount /mnt/usb"
 alias xtags="ctags -R --exclude=.git .; du -sh tags"
+alias xstudio="~/Downloads/android-studio/bin/studio.sh >> /dev/null 2>&1 &|"
+
+# TI
+alias xhalcogen="wine ~/ti/Hercules/HALCoGen/v04.06.00/HALCOGEN.exe"
+alias xccs="~/ti/ccsv7/eclipse/ccstudio"
+alias xuniflash="sudo /opt/ti/uniflash_4.1/node-webkit/nw"
 
 # program re-aliases
 # ipython in venv
 alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
 # always show statusbar, scale to screen, vi keys
-alias qiv="qiv -Im --vikeys"
+alias qiv="qiv -I --vikeys"
 
 # system alias
+alias wtf="ping 8.8.8.8"
 # get more usb info (bus, port, etc)
 alias xlsusb='sudo cat /sys/kernel/debug/usb/devices | grep -E "^([TSPD]:.*|)$"'
 # sleep screen
 alias xsleep="xset dpms force standby"
-alias xbat="cat /sys/class/power_supply/BAT1/capacity | xargs -i echo {}%"
+alias xbat="cat /sys/class/power_supply/BAT1/{status,capacity}"
 # stop ghostscript from coming up when I mistype gst (git status alias)
 alias gs=""
+# monitor
+alias xmonoff="xrandr --output LVDS1 --off --output HDMI1 --mode 1920x1080"
+alias xmonon="xrandr --output LVDS1 --auto --output HDMI1 --off"
+alias xhdmihrsame="xrandr --output HDMI1 --mode 1920x1080 --primary --same-as LVDS1"
+alias xhdmihr="xrandr --output HDMI1 --mode 1920x1080 --left-of LVDS1"
+alias xhdmilr="xrandr --output HDMI1 --mode 1680x1050 --left-of LVDS1"
+alias xhdmioff="xrandr --output HDMI1 --off"
+
 
 ##### notes
 ### clipboard stuff
 # CLIPBOARD output: xsel -bo 
 # PRIMARY input: xsel -i 
+### xclip cat image to clipboard with proper types
+# cat 3.4fig3.png | xclip -selection clipboard -t image/png
+
+### updating YCM
+## navigate to ~/.config/nvim/plugged/YCM
+# ./install.py --clang-completer -tern-completer
+## if vim complains about not finding python3...
+# sudo pip install --upgrade neovim
 
 ### get args from prev command
 # $ !line :column
@@ -81,6 +112,12 @@ alias gs=""
 ### bluetooth excursion
 # $ systemctl start bluetooth.service
 # $ bluetoothctl
+
+### netcat things
+## server
+# $ netcat -l -p 4444 localhost
+## client
+# $ netcat localhost 4444
 
 ### pa stuff
 # $ pulseaudio --kill
@@ -99,6 +136,17 @@ alias gs=""
 # $ tar -zcvf out.tar.gz ./dir
 ## extract archive
 # $ tar -zxvf out.tar.gz -C ./out
+
+### sd format
+## fat32
+# get disk
+# $ lsblk
+# partition it, enter 0xb for W95 FAT32
+# $ sudo fdisk /dev/sdb
+# format it
+# $ sudo mkdosfs -F 32 /dev/sdb1
+# use it
+# $ sudo mount -t auto /dev/sdb1 /mnt/sd
 
 # screenshot
 # $ shutter
@@ -219,6 +267,12 @@ xgcode() {
     esac
   done
 }
+
+# trim mp4 start end
+# ffmpeg -i movie.mp4 -ss 00:00:03 -t 00:00:08 -async 1 cut.mp4
+# mp4 to gif
+# ffmpeg -i input.mp4 -vf scale=320:-1 -r 10 -f image2pipe -vcodec ppm - | \
+  # convert -delay 10 -loop 0 - output.gif
 
 # colorize manpages
 man() {

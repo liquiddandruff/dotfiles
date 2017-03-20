@@ -7,6 +7,10 @@
 "
 " print hex value of actual bytes stored in file (assumes utf-8)
 " g8
+"
+" change lists
+" g;
+" g,
 
 
 "let g:python_host_prog='/usr/bin/python2'
@@ -63,6 +67,7 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'Shougo/unite.vim'
 	" HTML
 	Plug 'mattn/emmet-vim'
+	  " CTRL+Y+,
 	" Auto close tags
 	Plug 'alvan/vim-closetag'
 		let g:closetag_filenames = "*.html,*.jsx,*.js"
@@ -105,6 +110,8 @@ call plug#begin('~/.config/nvim/plugged')
 		let g:limelight_conceal_ctermfg = 240
 		autocmd! User GoyoEnter Limelight
 		autocmd! User GoyoLeave Limelight!
+	" Wiki
+	Plug 'vimwiki/vimwiki'
 	" Shows search results as you're typing
 	Plug 'junegunn/vim-pseudocl'
 	Plug 'junegunn/vim-oblique'
