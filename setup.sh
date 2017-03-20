@@ -35,4 +35,7 @@ ln $flags "${dotfile_dir}/awesome/rc.lua" "$HOME/.config/awesome/rc.lua"
 # Zathura
 mkdir -p "$HOME/.config/zathura"
 ln $flags "${dotfile_dir}/zathura/zathurarc" "$HOME/.config/zathura/zathurarc"
+# Htop
+mkdir -p "$HOME/.config/htop"
+ln $flags "${dotfile_dir}/htop/htoprc" "$HOME/.config/htop/htoprc"
 
