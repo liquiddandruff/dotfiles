@@ -1,37 +1,25 @@
-# zathurarc-dark, from https://github.com/mohabaks/dotfiles/blob/master/zathura/zathurarc
+# zathurarc-dark, from https://github.com/esn89/base16-zathura/blob/master/zathurarc-dark
 
-set font   "Fira Mono"
 # settings
+set font terminus 8
+set show_inputbar false
 set adjust_open width
 set width 636
 set height 382
-set font terminus 8
-set show_inputbar false
 
-# colors
-set completion_bgcolor #101010
-set completion_fgcolor #999999
-set completion_g_bgcolor #101010
-set completion_g_fgcolor #999999
-set completion_hl_bgcolor #999999
-set_completion_hl_fgcolor #101010
-set default_bgcolor #101010
-set default_fgcolor #999999
-set statusbar_bgcolor #101010
-set statusbar_fgcolor #999999
-set inputbar_bgcolor #101010
-set inputbar_fgcolor #999999
-set notification_e_bgcolor #101010
-set notification_e_fgcolor #8C4665
-set notification_w_bgcolor #101010
-set notification_w_fgcolor #287373
+# theme
+set statusbar-bg                "#202020" #01
+set statusbar-fg                "#B0B0B0" #04
+set notification-error-bg       "#AC4142" #08
+set notification-error-fg       "#151515" #00
+set notification-warning-bg     "#AC4142" #08
+set notification-warning-fg     "#151515" #00
+set notification-bg             "#202020" #04
+set notification-fg             "#B0B0B0" #01
 
+# pdf theme
+set recolor                     "true"
+set recolor-keephue             "true"
 set recolor-lightcolor          "#101010" #00
 set recolor-darkcolor           "#E0E0E0" #06
-set recolor                     "true"
 
-# setting recolor-keep true will keep any color your pdf has.
-# if it is false, it'll just be black and white
-set recolor-keephue             "true"
-
-# Rest of your configs go here:

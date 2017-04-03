@@ -6,6 +6,8 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/home/steven/.oh-my-zsh
 
+# don't let zsh rename tmux windows
+#export DISABLE_AUTO_TITLE="true"
 # themes in ~/.oh-my-zsh/themes/
 ZSH_THEME="agnoster"
 #af-magic
@@ -42,6 +44,7 @@ alias erc="nvim ~/.zshrc"
 alias src="source ~/.zshrc"
 
 # to dirs
+alias towm="cd ~/.config/awesome"
 alias torepos="cd ~/GitRepos"
 alias tosat="torepos; cd SFUSat"
 alias todots="cd ~/dotfiles"
@@ -112,6 +115,8 @@ alias xhdmioff="xrandr --output HDMI1 --off"
 ### bluetooth excursion
 # $ systemctl start bluetooth.service
 # $ bluetoothctl
+## block/unblock bluetooth (power saving measure)
+# $ rfkill <block|unblock> bluetooth
 
 ### netcat things
 ## server
@@ -147,6 +152,9 @@ alias xhdmioff="xrandr --output HDMI1 --off"
 # $ sudo mkdosfs -F 32 /dev/sdb1
 # use it
 # $ sudo mount -t auto /dev/sdb1 /mnt/sd
+
+## move random 2500 files in curr directory to dest dir
+# $ find . -type f | shuf -n 2500 | xargs -I '{}' mv {} ~/dest
 
 # screenshot
 # $ shutter
@@ -239,7 +247,7 @@ tohw() {
   done
 }
 
-# mv gcode to sd
+# 3dprinting: mv gcode to sd
 xgcode() {
   # init empty array
   gcodeFiles=()

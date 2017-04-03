@@ -11,6 +11,10 @@
 " change lists
 " g;
 " g,
+"
+" diff open buffers
+":window diffthis
+":window diffoff
 
 
 "let g:python_host_prog='/usr/bin/python2'

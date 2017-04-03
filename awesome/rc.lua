@@ -52,11 +52,12 @@ local function run_once(cmd)
   awful.spawn.with_shell(string.format("pgrep -u $USER -x %s > /dev/null || (%s)", findme, cmd))
 end
 
-run_once("unclutter -root")
+run_once("sudo powertop --auto-tune")
+run_once("rfkill block bluetooth")
 -- }}}
 
 -- {{{ Variable definitions
-local chosen_theme = "powerarrow-darker"
+local chosen_theme = "powerarrow-dark"
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "urxvtc"
