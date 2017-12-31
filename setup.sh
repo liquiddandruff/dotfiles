@@ -14,8 +14,8 @@ ln $flags "${dotfile_dir}/.ncmpcpp" "$HOME/.ncmpcpp"
 
 # Scripts
 mkdir -p "$HOME/bin"
+ln $flags "${dotfile_dir}/bin/"*.py "$HOME/bin"
 ln $flags "${dotfile_dir}/bin/"*.sh "$HOME/bin"
-ln $flags "${dotfile_dir}/bin/"**/*.sh "$HOME/bin"
 # Drop the ".sh" from all scripts.
 for script in "$HOME/bin/"*.sh; do mv "$script" "${script/'.sh'}"; done
 
@@ -32,6 +32,7 @@ ln $flags "${dotfile_dir}/init.vim" "$HOME/.config/nvim"
 # Awesome
 mkdir -p "$HOME/.config/awesome"
 ln $flags "${dotfile_dir}/awesome/rc.lua" "$HOME/.config/awesome/rc.lua"
+ln $flags "${dotfile_dir}/awesome/powerarrow-dark-custom" "$HOME/.config/awesome/themes/powerarrow-dark-custom"
 # Zathura
 mkdir -p "$HOME/.config/zathura"
 ln $flags "${dotfile_dir}/zathura/zathurarc" "$HOME/.config/zathura/zathurarc"

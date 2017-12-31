@@ -33,6 +33,7 @@ export EDITOR="nvim"
 export ANDROID_HOME=/home/steven/Android/Sdk
 # zsh vi-mode editor
 export VISUAL="nvim"
+export MPD_HOST="/tmp/mpd.sock"
 
 # edit
 alias vim="nvim"
@@ -40,6 +41,7 @@ alias evimrc="vim ~/dotfiles/init.vim"
 alias ewm="vim ~/dotfiles/awesome/rc.lua"
 alias etmux="vim ~/dotfiles/.tmux.conf"
 alias emp="vim ~/dotfiles/.ncmpcpp/config"
+alias empd="vim ~/dotfiles/.mpd/mpd.conf"
 alias erc="nvim ~/.zshrc"
 alias src="source ~/.zshrc"
 
@@ -51,6 +53,9 @@ alias todots="cd ~/dotfiles"
 alias todb="cd ~/Dropbox"
 alias todl="cd ~/Downloads"
 
+# git
+# mnemonic: git log history
+alias glh="echo \"usage eg: glh -L49,62:SFUsat/sfu_task_main.c\";git log --topo-order --graph -u"
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
 # execute
@@ -66,6 +71,7 @@ alias xunmountusb="sync; sudo umount /mnt/usb"
 alias xtags="ctags -R --exclude=.git .; du -sh tags"
 alias xstudio="~/Downloads/android-studio/bin/studio.sh >> /dev/null 2>&1 &|"
 
+
 # TI
 alias xhalcogen="wine ~/ti/Hercules/HALCoGen/v04.06.00/HALCOGEN.exe"
 alias xccs="~/ti/ccsv7/eclipse/ccstudio"
@@ -74,10 +80,14 @@ alias xuniflash="sudo /opt/ti/uniflash_4.1/node-webkit/nw"
 # program re-aliases
 # ipython in venv
 alias ipy="python -c 'import IPython; IPython.terminal.ipapp.launch_new_instance()'"
-# always show statusbar, scale to screen, vi keys
-alias qiv="qiv -I --vikeys"
+# always show statusbar, scale to 1000px horiz, vi keys
+alias qiv="qiv -I -w 1000 --vikeys"
+alias pam="~/bin/pulse-mixer.py"
 
 # system alias
+# list hidden, human size, sort ctime, reverse
+alias l="ls -lahtcr"
+alias pkgs="grep -n 'pacman -S .*' /var/log/pacman.log"
 alias wtf="ping 8.8.8.8"
 # get more usb info (bus, port, etc)
 alias xlsusb='sudo cat /sys/kernel/debug/usb/devices | grep -E "^([TSPD]:.*|)$"'
@@ -87,26 +97,36 @@ alias xbat="cat /sys/class/power_supply/BAT1/{status,capacity}"
 # stop ghostscript from coming up when I mistype gst (git status alias)
 alias gs=""
 # monitor
-alias xmonoff="xrandr --output LVDS1 --off --output HDMI1 --mode 1920x1080"
-alias xmonon="xrandr --output LVDS1 --auto --output HDMI1 --off"
-alias xhdmihrsame="xrandr --output HDMI1 --mode 1920x1080 --primary --same-as LVDS1"
-alias xhdmihr="xrandr --output HDMI1 --mode 1920x1080 --left-of LVDS1"
-alias xhdmilr="xrandr --output HDMI1 --mode 1680x1050 --left-of LVDS1"
-alias xhdmioff="xrandr --output HDMI1 --off"
+alias xmonoff="xrandr --output LVDS1 --off --output HDMI1 --primary --mode 1920x1080"
+alias xmonon="xrandr --output LVDS1 --primary --auto --output HDMI1 --off"
+alias xhdmi="xrandr --output HDMI1 --primary --mode 1920x1080 --output LVDS1 --auto --below HDMI1"
+alias xhdmidup="xrandr --output HDMI1 --primary --mode 1920x1080 --same-as LVDS1"
+alias xhdmioff="xrandr --output HDMI1 --off --output LVDS1 --primary --auto"
+
+enable2mon() {
+  echo "Dual Screen on"
+  xrandr --output HDMI1 --primary --mode 1920x1080
+  xrandr --output LVDS1 --off
+  xrandr --output LVDS1 --auto --below HDMI1
+}
 
 
 ##### notes
+### set eastern timezone
+# $ sudo timedatectl set-timezone Canada/Eastern
+
 ### clipboard stuff
 # CLIPBOARD output: xsel -bo 
 # PRIMARY input: xsel -i 
+
 ### xclip cat image to clipboard with proper types
-# cat 3.4fig3.png | xclip -selection clipboard -t image/png
+# $ cat 3.4fig3.png | xclip -selection clipboard -t image/png
 
 ### updating YCM
 ## navigate to ~/.config/nvim/plugged/YCM
-# ./install.py --clang-completer -tern-completer
+# $ ./install.py --clang-completer -tern-completer
 ## if vim complains about not finding python3...
-# sudo pip install --upgrade neovim
+# $ sudo pip install --upgrade neovim
 
 ### get args from prev command
 # $ !line :column
@@ -114,9 +134,14 @@ alias xhdmioff="xrandr --output HDMI1 --off"
 
 ### bluetooth excursion
 # $ systemctl start bluetooth.service
-# $ bluetoothctl
 ## block/unblock bluetooth (power saving measure)
 # $ rfkill <block|unblock> bluetooth
+# $ bluetoothctl
+## $ power on
+## $ agent on
+## $ connect <bluetooth mac>
+## $ exit
+# $ pacmd set-card-profile <bluez_index> a2dp_sink 
 
 ### netcat things
 ## server
@@ -134,7 +159,9 @@ alias xhdmioff="xrandr --output HDMI1 --off"
 # $ pactl move-sink-input <ID> <SINK>
 ## reset alsa when fubar
 # $ alsactl restore
-#
+
+### cpulimit
+# $ cpulimit -l <percent 1..100> -p <pid>
 
 ### tar lol
 ## make archive
@@ -153,16 +180,43 @@ alias xhdmioff="xrandr --output HDMI1 --off"
 # use it
 # $ sudo mount -t auto /dev/sdb1 /mnt/sd
 
-## move random 2500 files in curr directory to dest dir
+### move random 2500 files in curr directory to dest dir
 # $ find . -type f | shuf -n 2500 | xargs -I '{}' mv {} ~/dest
 
-# screenshot
-# $ shutter
+### send gui notification
+# $ notify-send hi
+
+### mount android filesystem over network
+## mount
+# install and setup "sshelper app"
+# $ mkdir ~/mnt/axon
+# $ sshfs ANDROID_IP:/storage/emulated/0 ~/mnt/axon -p 2222
+## unmount
+# $ umount ~/mnt/axon
+
+### transmission
+# $ transmission-daemon --auth --username steven --password 2552 --port 9091 --allowed "127.0.0.1"
+
+
+# screenshot to clipboard
 xscn() {
-  import -window root /tmp/$(date '+%Y%m%d-%H%M%S').png
+  sleep 1; maim -s | xclip -selection clipboard -t image/png
 }
-xscnw() {
-  sleep 2; import root /tmp/$(date '+%Y%m%d-%H%M%S').png
+# screenshot to file
+xscnf() {
+  sleep 1; maim -s > $1
+}
+# screenshot to temp
+xscnt() {
+  xclip -selection clipboard -t image/png -o > /tmp/screenshot.png
+}
+
+# fast bluetooth speaker, anker
+xbt () {
+  echo -e 'power on\nconnect C9:50:76:9E:51:4D\nquit' | bluetoothctl
+}
+xnobt () {
+  echo -e 'disconnect C9:50:76:9E:51:4D\nquit' | bluetoothctl
 }
 
 # replace in out
@@ -182,17 +236,23 @@ ccups() {
 
 # tonas USER PASS
 tonas() {
-	smbclient //wdnas/Media $2 -U $1
+	smbclient //192.168.0.130/Media $2 -U $1
 }
 
 # mountnas USER PASS
 mountnas() {
 	sudo mkdir /mnt/nas
-	sudo mount -t cifs //wdnas/Media /mnt/nas -o user=$1,password=$2
+	sudo mount -t cifs //192.168.0.130/Media /mnt/nas -o user=$1,password=$2
 }
 # unmount nas, all, lazy
 umountnas() {
 	sudo umount -a -t cifs -l /mnt/nas
+}
+
+# doc viewer
+word() {
+  doc_loc_virtual="Z:/$PWD/$1"
+  wine "C:\Program Files (x86)\Microsoft Office\OFFICE11\WORDVIEW.EXE" $doc_loc_virtual
 }
 
 setbn() {

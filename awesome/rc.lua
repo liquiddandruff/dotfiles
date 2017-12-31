@@ -1,13 +1,14 @@
+
 --[[
-                                       
-     Awesome WM configuration template 
-     github.com/copycat-killer         
-                                       
+
+     Awesome WM configuration template
+     github.com/copycat-killer
+
 --]]
 
 -- {{{ Required libraries
-local awesome, client, screen, tag = awesome, client, screen, tag
-local pairs, string, os, table, tostring, tonumber, type = pairs, string, os, table, tostring, tonumber, type
+local awesome, client, mouse, screen, tag = awesome, client, mouse, screen, tag
+local ipairs, string, os, table, tostring, tonumber, type = ipairs, string, os, table, tostring, tonumber, type
 
 local gears         = require("gears")
 local awful         = require("awful")
@@ -43,13 +44,15 @@ end
 -- }}}
 
 -- {{{ Autostart windowless processes
-local function run_once(cmd)
-  findme = cmd
-  firstspace = cmd:find(" ")
-  if firstspace then
-     findme = cmd:sub(0, firstspace-1)
-  end
-  awful.spawn.with_shell(string.format("pgrep -u $USER -x %s > /dev/null || (%s)", findme, cmd))
+local function run_once(cmd_arr)
+    for _, cmd in ipairs(cmd_arr) do
+        findme = cmd
+        firstspace = cmd:find(" ")
+        if firstspace then
+            findme = cmd:sub(0, firstspace-1)
+        end
+        awful.spawn.with_shell(string.format("pgrep -u $USER -x %s > /dev/null || (%s)", findme, cmd))
+    end
 end
 
 run_once("sudo powertop --auto-tune")
@@ -57,12 +60,11 @@ run_once("rfkill block bluetooth")
 -- }}}
 
 -- {{{ Variable definitions
-local chosen_theme = "powerarrow-dark"
+local chosen_theme = "powerarrow-dark-custom"
 local modkey       = "Mod4"
 local altkey       = "Mod1"
 local terminal     = "urxvtc"
 local editor       = "nvim"
-local gui_editor   = "gvim"
 local browser      = "chromium"
 local musicplr     = terminal .. " -g 130x34-320+16 -e ncmpcpp "
 
@@ -244,15 +246,23 @@ globalkeys = awful.util.table.join(
 
     -- By direction client focus
     awful.key({ modkey }, "j",
-        function()
-            awful.client.focus.bydirection("down")
-            if client.focus then client.focus:raise() end
-        end),
+        -- function()
+        --     awful.client.focus.bydirection("down")
+        --     if client.focus then client.focus:raise() end
+        -- end),
+        function ()
+            awful.client.focus.byidx( 1)
+        end,
+        {description = "focus next by index", group = "client"}),
     awful.key({ modkey }, "k",
-        function()
-            awful.client.focus.bydirection("up")
-            if client.focus then client.focus:raise() end
-        end),
+        -- function()
+        --     awful.client.focus.bydirection("up")
+        --     if client.focus then client.focus:raise() end
+        -- end),
+        function ()
+            awful.client.focus.byidx(-1)
+        end,
+        {description = "focus previous by index", group = "client"}),
     awful.key({ modkey }, "h",
         function()
             awful.client.focus.bydirection("left")
@@ -347,9 +357,13 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, }, "z", function () awful.screen.focused().quake:toggle() end),
 
     -- Widgets popups
-    awful.key({ altkey, }, "c", function () lain.widgets.calendar.show(7) end),
+    awful.key({ altkey, }, "c", function () lain.widget.calendar.show(7) end),
     --awful.key({ altkey, }, "h", function () if beautiful.fs then beautiful.fs.show(7) end end),
     awful.key({ altkey, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end),
+
+    -- Brightness
+    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 10") end),
+    awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 10") end),
 
     -- ALSA volume control
     awful.key({ altkey }, "Up",

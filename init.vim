@@ -29,25 +29,25 @@ call plug#begin('~/.config/nvim/plugged')
 	" Editor config
 	Plug 'editorconfig/editorconfig-vim'
 	" YCM
-	Plug 'Valloric/YouCompleteMe'
-		let g:ycm_confirm_extra_conf=0
-		let g:ycm_collect_identifiers_from_tags_files=1
-		nnoremap <Space>d :YcmCompleter GoTo<CR>
-		nnoremap <Space>e :YcmCompleter GoToDefinition<CR>
-		nnoremap <Space>w :YcmCompleter GetDoc<CR>
-		nnoremap <Space>q :YcmCompleter GoToInclude<CR>
-		" python only
-		nnoremap <Space>r :YcmCompleter GoToReferences<CR>
-		" On update...
-		" Regen makefiles
-		" $ cmake -G "Unix Makefiles" -DPATH_TO_LLVM_ROOT=~/ycm_temp/llvm_root_dir . ~/.config/nvim/plugged/YouCompleteMe/third_party/ycmd/cpp
-		" Make it
-		" $ cmake --build . --target ycm_core
+	" Plug 'Valloric/YouCompleteMe'
+	" 	let g:ycm_confirm_extra_conf=0
+	" 	let g:ycm_collect_identifiers_from_tags_files=1
+	" 	nnoremap <Space>d :YcmCompleter GoTo<CR>
+	" 	nnoremap <Space>e :YcmCompleter GoToDefinition<CR>
+	" 	nnoremap <Space>w :YcmCompleter GetDoc<CR>
+	" 	nnoremap <Space>q :YcmCompleter GoToInclude<CR>
+	" 	" python only
+	" 	nnoremap <Space>r :YcmCompleter GoToReferences<CR>
+	" 	" On update...
+	" 	" Regen makefiles
+	" 	" $ cmake -G "Unix Makefiles" -DPATH_TO_LLVM_ROOT=~/ycm_temp/llvm_root_dir . ~/.config/nvim/plugged/YouCompleteMe/third_party/ycmd/cpp
+	" 	" Make it
+	" 	" $ cmake --build . --target ycm_core
 	" UltiSnips engine
-	Plug 'SirVer/ultisnips'
-		let g:UltiSnipsExpandTrigger="<c-x>"
-		let g:UltiSnipsJumpForwardTrigger="<c-b>"
-		let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+	" Plug 'SirVer/ultisnips'
+	" 	let g:UltiSnipsExpandTrigger="<c-x>"
+	" 	let g:UltiSnipsJumpForwardTrigger="<c-b>"
+	" 	let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 	" UltiSnips snippets
 	Plug 'honza/vim-snippets'
 	" Doxygen snippets gen
@@ -67,8 +67,6 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'tpope/vim-sleuth'
 	" Autoindent
 	Plug 'Chiel92/vim-autoformat'
-	" Unite
-	Plug 'Shougo/unite.vim'
 	" HTML
 	Plug 'mattn/emmet-vim'
 	  " CTRL+Y+,
@@ -89,7 +87,9 @@ call plug#begin('~/.config/nvim/plugged')
 			\ 'subseparator': { 'left': '', 'right': '' }
 			\ }
 	" Auto completion
-	Plug 'Shougo/deoplete.nvim'
+	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	  set completeopt=noselect,menuone,longest
+	  let g:deoplete#enable_at_startup = 1
 	" File browser
 	Plug 'scrooloose/nerdtree'
 		nnoremap <F6> :NERDTreeToggle<CR>
@@ -168,11 +168,12 @@ set hlsearch
 set incsearch
 
 "" editor settings
-set hidden 			" enables edited buffer switching
+set hidden 		" enables edited buffer switching
 set wildmenu 		" fuzzy select
 set scrolloff=2
 set nowrap
 set backspace=indent,eol,start
+set mouse=niv		" mouse enabled on modes normal, insert, visual
 " invisible chars
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_,space:␣
 " tabs

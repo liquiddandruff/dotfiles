@@ -23,3 +23,6 @@ set recolor-keephue             "true"
 set recolor-lightcolor          "#101010" #00
 set recolor-darkcolor           "#E0E0E0" #06
 
+# keys
+map , navigate next
+map . navigate previous
